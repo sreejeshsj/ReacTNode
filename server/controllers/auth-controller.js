@@ -41,9 +41,9 @@ const login = async (req, res) => {
   try {
     const { username, password } = req.body;
     const user = await userModel.findOne({ username });
-
+    console.log(user)
     if (!user) {
-      return res.status(404).json({
+      return res.status(401).json({
         success: false,
         message: "User with give username is not found!",
       });
