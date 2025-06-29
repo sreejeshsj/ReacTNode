@@ -1,11 +1,12 @@
 const {uploadTocloudinary}=require('../helper/cloudinary_helper')
 const Post = require('../model/post')
+const cloudinary=require('../config/cloudinary')
 const uploadImageController=async(req,res)=>{
     try{
        if(!req.file){
         return res.status(400).json({
             success:false,
-            message:"Please upload an Image"
+            message:"Please1 upload an Image"
         })
        }
        
@@ -57,7 +58,46 @@ const fetchImageController=async (req,res)=>{
     
 }
 
+const deleteImageController=async (req,res)=>{
+    try{
+        const imageId=req.params.id
+        const userId=req.userinfo.userId
+
+        const image=await Post.findById(imageId)
+  
+        if (!image){
+            return res.status(404).json({
+                success:false,
+                message:"Image with give id is not found! Please try other id"
+            })
+        }
+        
+        if(image.uploadedBy != userId){
+            return res.status(401).json({
+                success:false,
+                message:"Your not the owner this post"
+            })
+        }
+
+        const delImage= await cloudinary.uploader.destroy(image.publicId)
+        await Post.findByIdAndDelete(imageId)
+        return res.status(200).json({
+            success:true,
+            message:"Post deleted successfully!",
+            data:delImage
+        })
+
+
+    }catch(err){
+        res.status(500).json({
+            success:false,
+            message: " Something went wrong while trying deleting image"
+        })
+
+    }
+    
+}
 
 
 
-module.exports={uploadImageController,fetchImageController}
+module.exports={uploadImageController,fetchImageController,deleteImageController}

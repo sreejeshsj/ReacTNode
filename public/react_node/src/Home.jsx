@@ -8,7 +8,8 @@ function Home() {
       <h1>This is a home page</h1>
       <button onClick={()=>navigate('/login')}>Login</button>
       <button onClick={()=>navigate('/register')}>Register</button>
-      <button onClick={()=>navigate('/posts')}>Posts</button>
+      <button onClick={()=>navigate('/posts')}>View</button>
+      <button onClick={()=>navigate('/upload')}>Post</button>
     </div>
   )
 }

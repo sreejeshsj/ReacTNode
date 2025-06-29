@@ -5,6 +5,7 @@ import NotFound from './NotFound'
 import Home from './Home'
 import {ToastContainer} from 'react-toastify'
 import Posts from './components/Posts'
+import UploadPost from './components/UploadPost'
 function App() {
   const router = createBrowserRouter([
     {
@@ -24,6 +25,10 @@ function App() {
     },{
       path:'/posts',
       element:<Posts/>,
+      errorElement:<NotFound/>
+    },{
+      path:'/upload',
+      element:<UploadPost/>,
       errorElement:<NotFound/>
     }
 

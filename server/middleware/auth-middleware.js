@@ -13,7 +13,6 @@ const authMiddler = (req, res, next) => {
   try {
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
     req.userinfo = decodedToken;
-    console.log(req.userinfo.userId)
     next();
   } catch (err) {
     res.status(500).json({
