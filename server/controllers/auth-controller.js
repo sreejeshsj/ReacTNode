@@ -81,7 +81,7 @@ const login = async (req, res) => {
   } catch (err) {
     return res.status(500).json({
       success: false,
-      message: "Something went Wrong! Please try again",
+      message: "Something1 went Wrong! Please try again",
       err,
     });
   }
